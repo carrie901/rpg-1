@@ -1,0 +1,1 @@
+This is a placeholder document. The purpose of it is so that the repository can maintain the proper folder structure when handling Unity projects. Delete this file as soon as you place a file in it's respective folder.
