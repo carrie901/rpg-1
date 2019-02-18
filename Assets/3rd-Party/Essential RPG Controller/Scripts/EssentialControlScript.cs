@@ -1,16 +1,35 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+            //if (Input.GetAxis("Vertical") > 0)
+            //    _currentMovementSpeedPercentageValue = BaseMovementSpeed* VerticalMovementSpeedModifier;
+            //else if (Input.GetAxis("Horizontal") > 0)
+            //    _currentMovementSpeedPercentageValue = BaseMovementSpeed* HorizontalMovementSpeedModifier;
+            //else if (Input.GetAxis("Strafe") > 0)
+            //    _currentMovementSpeedPercentageValue = BaseMovementSpeed* StrafeMovementSpeedModifier;
+
+            //return _currentMovementSpeedPercentageValue;
+
+
 // Require these components when using this script
 [RequireComponent(typeof (Animator))]
 [RequireComponent(typeof (CapsuleCollider))]
 [RequireComponent(typeof (Rigidbody))]
 public class EssentialControlScript : MonoBehaviour
 {
+    public float BaseMovementSpeed
+    {
+        get { return _baseMovementSpeedModifier; }
+        set { _baseMovementSpeedModifier = value; }
+    }
+    [SerializeField] private float _baseMovementSpeedModifier = 100f;
 
+    
 
-	public float AnimationSpeed = 1.0f;
-	public float TurnSpeed = 2.0f;
+    
+
+    public float TurnSpeed = 2.0f;
 	public float FallHeight = 3.0f;
 	public bool RunIsToggle = true;
 	public bool RunAfterFall = false;
@@ -30,7 +49,13 @@ public class EssentialControlScript : MonoBehaviour
 	private bool rightMouseDown = false;
 	private bool leftMouseDown = false;
 
-	void Start ()
+
+    private void Awake()
+    {
+        
+    }
+
+    void Start ()
 	{
 		// initialising reference variables
 		thisGameObject = gameObject;
@@ -46,17 +71,12 @@ public class EssentialControlScript : MonoBehaviour
 	
 	void Update ()
 	{
-		if (!Input.GetButton("Fire1"))
-		{
-			leftMouseDown = false;
-		}
-		if (!Input.GetButton("Fire2"))
-		{
-			rightMouseDown = false;
-		}
-
-		
-		//if the user has the right mouse button down and no direction buttons pressed, direction should respond to Mouse X movement
+		if (!Input.GetButton("Fire1")) leftMouseDown = false;
+		if (!Input.GetButton("Fire2")) rightMouseDown = false;
+        
+        
+        
+        //if the user has the right mouse button down and no direction buttons pressed, direction should respond to Mouse X movement
 		float s = Input.GetAxis("Strafe");
 		anim.SetFloat("Strafe", s);
 
@@ -83,8 +103,11 @@ public class EssentialControlScript : MonoBehaviour
 			anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), v, Time.deltaTime * 10));
 		}
 
-		anim.speed = AnimationSpeed;
-		currentBaseState = anim.GetCurrentAnimatorStateInfo(0);
+
+     //   anim.speed = CurrentMovementSpeed;
+
+
+        currentBaseState = anim.GetCurrentAnimatorStateInfo(0);
 		
 		//do things we need to do based on what state we are in
 		if (currentBaseState.nameHash == idleState)

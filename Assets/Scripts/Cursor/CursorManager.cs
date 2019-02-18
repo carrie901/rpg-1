@@ -36,7 +36,7 @@ public class CursorManager : Singleton<CursorManager>
     {
         if (IsVisible) return;
 
-        if (UnityEngineUtilities.IsOutsideGameView)
+        if (CustomUnityUtilities.IsOutsideGameView)
             Cursor.visible = true;
         else
             Cursor.visible = false;

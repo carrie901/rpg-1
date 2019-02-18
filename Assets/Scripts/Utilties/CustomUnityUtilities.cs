@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class UnityEngineUtilities
+public static class CustomUnityUtilities
 {
     public static bool IsOutsideGameView
     {
